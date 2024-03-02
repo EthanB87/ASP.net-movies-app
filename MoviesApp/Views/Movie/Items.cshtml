@@ -1,0 +1,37 @@
+﻿@model List<MovieSummaryViewModel>
+
+@{
+    ViewData["Title"] = "All Movies";
+}
+
+<a asp-controller="Movie" asp-action="GetAddMovieRequest">Add new movie</a>
+<div class="row">
+    @foreach (MovieSummaryViewModel movieSummary in Model)
+    {
+        <div class="card col-sm-12 col-md-6">
+            <h5 class="card-header">
+                <a asp-controller="Movie"
+                asp-action="GetMovieById" asp-route-id="@movieSummary.ActiveMovie.MovieId">
+                    @movieSummary.ActiveMovie.Name
+                </a>
+            </h5>
+            <div class="card-body">
+                <p class="card-text">
+                    A <a asp-controller="Movie" asp-action="GetMoviesByGenreId" 
+                            asp-route-genreId="@movieSummary.ActiveMovie.GenreId">
+                        @movieSummary.ActiveMovie.Genre.Name
+                    </a> starring
+                    <a href="#">@movieSummary.ActorDisplayText</a> that debuted 
+                    in @(movieSummary.ActiveMovie.Year).
+                </p>
+                <p class="card-text">
+                    Average rating: @movieSummary.AverageRating.ToString("0.0") from 
+                    <a href="#">@movieSummary.NumberOfReviews reviews</a>.
+                </p>
+                <p>
+                    <partial name="_MovieActionLinksPartial" model="@movieSummary.ActiveMovie" />
+                </p>
+            </div>
+        </div>
+    }
+</div>

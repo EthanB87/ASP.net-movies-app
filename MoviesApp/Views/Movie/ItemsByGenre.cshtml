@@ -1,0 +1,35 @@
+﻿@model MoviesByGenreViewModel
+
+@{
+    ViewData["Title"] = $"Movies for the \"{Model.ActiveGenreName}\" Genre";
+}
+
+<a asp-controller="Movie" asp-action="GetAddMovieRequest">Add new movie</a>
+<div class="row">
+    <div class="col-sm-9">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Year</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var movie in Model.Movies)
+                {
+                    <tr>
+                        <td>@movie.Name</td>
+                        <td>@movie.Year</td>
+                        <td>
+                            <partial name="_MovieActionLinksPartial" model="@movie" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="col-sm-3">
+        <vc:top-rated-movies lowest-rating="3" number-of-movies-to-display="3"></vc:top-rated-movies>
+    </div>
+</div>

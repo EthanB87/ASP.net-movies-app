@@ -1,0 +1,5 @@
+﻿@model Movie
+
+<a asp-controller="Movie" asp-action="GetEditRequestById" asp-route-id="@Model.MovieId">Edit</a>
+<span class="mx-1">|</span>
+<a asp-controller="Movie" asp-action="GetDeleteRequestById" asp-route-id="@Model.MovieId">Delete</a>
